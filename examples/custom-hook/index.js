@@ -1,33 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { render } from "react-dom";
 
-const ComponentWithTickIteration = () => {
-  const [value, setValue] = useState(1);
 
-  useEffect(() => {
-    setInterval(() => {
-      setValue(value + 1);
-    });
-  }, []);
 
-  return <div>{value}</div>;
-};
+// const useListen = (name, target, handler) => {
+//   const handlerRef = useRef(null);
 
-const ComponentWithIteration = () => {
-  const [value, setValue] = useState(1);
+//   useEffect(() => {
+//     handlerRef.current = handler;
+//   }, [handler]);
 
-  return (
-    <div>
-      {value}
-      <div>
-        <button onClick={() => setValue(value + 1)}>Increase</button>
-      </div>
-    </div>
-  );
-};
+//   const handleEvent = useCallback(() => {
+//     handlerRef.current();
+//   }, [])
+
+//   useEffect(() => {
+//     target.addEventListener(name, handleEvent);
+
+//     return () => {
+//       target.removeEventListener(name, handleEvent);
+//     }
+//   }, [name, target, handleEvent]);
+// }
+
+
 
 const ReactComponent = () => {
   const [time, setTime] = useState();
+
+  useListen('mousemove', window, () => {
+    console.log('Hello!!!');
+  })
 
   useEffect(() => {
     setInterval(() => {
@@ -35,7 +38,7 @@ const ReactComponent = () => {
     }, 1000);
   }, []);
 
-  return <div>{time?.toString()}</div>;
+  return <div className={styles.example}>{time?.toString()}</div>;
 };
 
-render(<ComponentWithTickIteration />, document.getElementById("root"));
+render(<ReactComponent />, document.getElementById("root"));
